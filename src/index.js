@@ -8,7 +8,23 @@ const buildRoutes = require('./routes/buildRoutes');
 
 const app = express();
 
-app.use(cors());
+const FRONTEND_URL =
+  process.env.FRONTEND_URL ||
+  process.env.CLIENT_URL ||
+  process.env.CORS_ORIGIN ||
+  '';
+
+app.use(
+  cors(
+    FRONTEND_URL
+      ? {
+          origin: FRONTEND_URL,
+          methods: ['GET', 'POST', 'OPTIONS'],
+          optionsSuccessStatus: 200,
+        }
+      : {}
+  )
+);
 app.use(express.json());
 
 app.get('/api/health', (req, res) => {
