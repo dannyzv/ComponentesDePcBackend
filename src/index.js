@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 const componentRoutes = require('./routes/componentRoutes');
 const compatibilityRoutes = require('./routes/compatibilityRoutes');
 const buildRoutes = require('./routes/buildRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/components', componentRoutes);
 app.use('/api/compatibility', compatibilityRoutes);
 app.use('/api/builds', buildRoutes);
+app.use('/api/auth', authRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ error: 'Ruta no encontrada' });
@@ -46,10 +48,12 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`API disponible en http://localhost:${PORT}`);
+if (process.env.VERCEL !== '1') {
+  connectDB().then(() => {
+    app.listen(PORT, () => {
+      console.log(`API disponible en http://localhost:${PORT}`);
+    });
   });
-});
+}
 
 module.exports = app;

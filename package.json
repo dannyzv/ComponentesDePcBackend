@@ -6,12 +6,15 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "seed": "node src/seeds/componentsSeed.js"
+    "seed": "node src/seeds/componentsSeed.js",
+    "seed:users": "node src/seeds/usersSeed.js"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.13.0"
   },
   "devDependencies": {
@@ -20,6 +23,11 @@
   "engines": {
     "node": ">=18"
   },
-  "keywords": ["pc", "builder", "compatibilidad", "optimizador"],
+  "keywords": [
+    "pc",
+    "builder",
+    "compatibilidad",
+    "optimizador"
+  ],
   "license": "MIT"
 }
